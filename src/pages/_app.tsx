@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       className={pretendard.className}
       style={{
         display: 'flex',
+        position: 'relative',
         flexDirection: 'column',
         overflow: 'auto',
         minHeight: '100dvh',

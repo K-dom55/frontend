@@ -23,6 +23,7 @@ export const resetStyle = css`
   dl,
   dt,
   dd,
+  button,
   ol,
   ul,
   li,
@@ -32,14 +33,13 @@ export const resetStyle = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 10px;
+    padding: 0;
+    font-size: 16px;
     vertical-align: baseline;
   }
   body {
     line-height: 1;
-    font-family: 'Noto Sans KR', sans-serif;
     background-color: #f6f9f0;
-    margin-bottom: 100px;
   }
   ol,
   ul {

@@ -82,6 +82,9 @@ export default function Button({
         css`
           font-family: pretendard;
           text-align: center;
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 150ms;
         `,
         cssProps,
       ]}
