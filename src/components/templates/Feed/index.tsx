@@ -10,9 +10,10 @@ interface Props {
   articleList: ArticleListDTO[];
   hasNoResult: boolean;
   onSearch?: (value: string) => void;
+  onClick?: (id: number) => void;
 }
 
-export default function FeedTemplate({ articleList, hasNoResult, onSearch }: Props) {
+export default function FeedTemplate({ articleList, hasNoResult, onSearch, onClick }: Props) {
   const style = {
     container: css`
       display: flex;
@@ -58,7 +59,7 @@ export default function FeedTemplate({ articleList, hasNoResult, onSearch }: Pro
         />
       </div>
       {articleList.map((article) => (
-        <Feed key={article.id}>
+        <Feed key={article.id} onClick={() => onClick?.(article.id)}>
           <Feed.Image src={article.imgUrl} />
           <Feed.Spacer />
           <Feed.Title text={article.title} />
