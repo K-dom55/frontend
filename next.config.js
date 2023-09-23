@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'img.youtube.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'developers.kakao.com',
+      },
     ],
   },
   webpack: (config) => {
