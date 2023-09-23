@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 
 const Button = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 60px;
+  height: 60px;
 `;
 
 export default function ShareKakao() {
@@ -39,8 +39,8 @@ export default function ShareKakao() {
     <>
       <Button onClick={shareKakao}>
         <Image
-          width={24}
-          height={24}
+          width={60}
+          height={60}
           src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
           alt="카카오톡 공유 보내기 버튼"
         />

@@ -7,12 +7,22 @@ import AttachImage from '@/assets/images/attach_16.svg';
 import Image from 'next/image';
 import Qr from '@/assets/images/qr.png';
 import { RefObject, useEffect, useRef, useState } from 'react';
+import { ShareKakao, ShareNative, ShareTwitter } from '@/components/atom';
+import moment from 'moment';
+import { useRouter } from 'next/router';
 
 interface Props {
   attachUrl: string;
+  dto?: {
+    title: string;
+    content: string;
+    target: string;
+    linkUrl: string;
+    keyword: { keyword: string; id: number }[];
+  };
 }
 
-export default function Report({ attachUrl }: Props) {
+export default function Report({ attachUrl, dto }: Props) {
   const style = {
     container: css`
       width: 360px;
@@ -147,6 +157,7 @@ export default function Report({ attachUrl }: Props) {
   };
 
   const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
+  const router = useRouter();
 
   useEffect(() => {
     const urlList = [
@@ -170,13 +181,18 @@ export default function Report({ attachUrl }: Props) {
   return (
     <div css={style.container}>
       <div css={style.top}>
-        <TitleSmall />
+        <TitleSmall
+          css={css`
+            cursor: pointer;
+          `}
+          onClick={() => {
+            router.push('/');
+          }}
+        />
         <NowTime />
       </div>
       <div css={style.titleContainer}>
-        <p css={[style.title, theme.headline1, theme.aggro]}>
-          문상훈을 보고나서 코로나가 완치됐어요!
-        </p>
+        <p css={[style.title, theme.headline1, theme.aggro]}>{dto?.title}</p>
       </div>
       <div css={style.imageContainer}>
         <div css={style.profileImage}></div>
@@ -185,29 +201,26 @@ export default function Report({ attachUrl }: Props) {
         <div css={style.profileNameDate}>
           <div css={style.profileNameTitle}>
             <p css={[theme.aggro, style.subtitle]}>최애의 이름</p>
-            <p css={[theme.aggro, style.profileName]}>문상훈</p>
+            <p css={[theme.aggro, style.profileName]}>{dto?.target}</p>
           </div>
           <div css={style.profileDateTitle}>
             <p css={[theme.aggro, style.subtitle]}>발행 일시</p>
-            <p css={[theme.aggro, style.profileDate]}>23.09.23</p>
+            <p css={[theme.aggro, style.profileDate]}>{moment().format('YY.MM.DD')}</p>
           </div>
         </div>
         <div css={style.effect}>
           <p css={[theme.aggro, style.subtitle]}>최애의 효능</p>
           <div css={style.chipContainer}>
-            <Feed.Chip text="귀여움" />
-            <Feed.Chip text="듬직함" />
-            <Feed.Chip text="발랄함" />
+            {dto?.keyword.map((keyword, i) => {
+              if (i === 4) return;
+              return <Feed.Chip key={keyword.id} text={keyword.keyword} />;
+            })}
           </div>
         </div>
       </div>
       <div css={style.reason}>
         <p css={[theme.aggro, style.subtitle]}>문상훈을 사랑해야하는 이유</p>
-        <p css={theme.caption1}>
-          문상훈은 후암동에서 시작한 만능 개그맨으로, 2023년 현재까지 문기자, 문이병, 문쌤, 복학생
-          브이로그, 해인칭, 오당기 등 수많은 컨텐츠를 기획 및 출연하며 꿈에 그리던 유튜브 구독자
-          100만을 돌파했다.
-        </p>
+        <p css={theme.caption1}>{dto?.content}</p>
       </div>
       <div css={style.last}>
         <p css={[theme.aggro, style.subtitle]}>이 사람의 진짜 매력을 보려면...</p>
@@ -221,7 +234,7 @@ export default function Report({ attachUrl }: Props) {
           )}
           <a css={[theme.caption3, style.attach]} href="https://youtu.be/9J1IXuEtToY">
             <AttachImage />
-            https://youtu.be/9J1IXuEtToY
+            {dto?.linkUrl}
           </a>
         </div>
 

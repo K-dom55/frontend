@@ -56,21 +56,36 @@ export default function Forms({
       keyword: keywordList,
     };
     const formData = new FormData();
-    formData.append('dto', JSON.stringify(dto));
     if (!imageFile) return;
     formData.append('file', imageFile);
 
-    await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL as string, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    formData.append('dto', JSON.stringify(dto));
+
+    console.log(imageFile);
+
+    console.log(formData);
+
+    console.log(imageFile);
+
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL as string}/articles`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      const params = JSON.stringify(dto);
+      router.push(`/result?dto=${params}`);
+    }
   };
 
   const onSubmit = (values: any) => {};
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const file = event.target.files[0];
+    console.log(file);
 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -140,7 +155,7 @@ export default function Forms({
           step={step}
           slideDirection={slideDirection}
           handleBack={handleBack}
-          handleNext={handleNext}
+          handleNext={submitFinal}
           handleShowPopup={handleShowPopup}
           keywordList={keywordList}
           handleAddKeywordItem={handleAddKeywordItem}

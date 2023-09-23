@@ -258,7 +258,7 @@ export default function HealthForm({
             width: 100%;
           `}
           size="xxlarge"
-          disabled={false}
+          disabled={!keywordList.length}
           onClick={handleNext}
         >
           완료

@@ -171,7 +171,7 @@ export default function FavoritForm({
             type="text"
             value={favoriteLink}
             onChange={handleChangeFavoriteLink}
-            placeholder="링크를 추가해주세요"
+            placeholder="유튜브 링크를 추가해주세요"
             css={css`
               display: block;
               font-family: Pretendard;
