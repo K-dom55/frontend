@@ -26,17 +26,29 @@ const sizes = {
   `,
 };
 
-/*
 const variants = {
-    primary (theme:Theme) {
-        return css`
-            ${theme}
-        `
+  primary: css`
+    color: '#ecfe54';
+    background-color: #1d1d1d;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 140%;
 
+    &:hover {
+      backgroundcolor: '#3c3c3c';
+      color: '#ecfe54';
     }
-    
-}
-*/
+
+    &:disabled {
+      background-color: '#dadada';
+      color: '#979797';
+    }
+  `,
+  outlined: css`
+    border: 1px solid #1d1d1d;
+    color: '#1d1d1d';
+  `,
+};
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
@@ -44,7 +56,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
   disabled?: boolean;
   onClick?: () => void;
-  css?: SerializedStyles;
+  cssProps?: SerializedStyles;
   children: ReactNode;
 }
 export default function Button({
@@ -54,23 +66,25 @@ export default function Button({
   disabled,
   children,
   onClick,
-  css,
+  cssProps,
   ...props
 }: Props) {
   return (
     <button
-      css={[[sizes[size], , css]]}
+      css={[
+        sizes[size],
+        variants[variant],
+        css`
+          text-align: center;
+        `,
+        cssProps,
+      ]}
       disabled={disabled}
       onClick={onClick}
       type="button"
       {...props}
     >
       {children}
-      <Child />
     </button>
   );
-}
-
-function Child({}) {
-  return <div></div>;
 }
