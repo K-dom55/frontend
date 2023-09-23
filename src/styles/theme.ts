@@ -19,8 +19,52 @@ export const theme = {
   `,
   headline1: css`
     font-size: 24px;
-    font-style: normal;
     font-weight: 700;
+    line-height: 150%;
+  `,
+  headline2: css`
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 150%;
+  `,
+  headline3: css`
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 150%;
+  `,
+  body1: css`
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 150%;
+  `,
+  body2: css`
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+  `,
+  body3: css`
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+  `,
+  body4: css`
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 150%;
+  `,
+  caption1: css`
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+  `,
+  caption2: css`
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 150%;
+  `,
+  caption3: css`
+    font-size: 12px;
+    font-weight: 400;
     line-height: 150%;
   `,
 };
