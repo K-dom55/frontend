@@ -35,7 +35,10 @@ export default function App({ Component, pageProps }: AppProps) {
             box-sizing: border-box;
             -moz-osx-font-smoothing: grayscale;
             -webkit-font-smoothing: antialiased;
-            font-smoothing: antialiased;
+          }
+          input,
+          button {
+            font-family: ${pretendard.style.fontFamily};
           }
         `}
       />
