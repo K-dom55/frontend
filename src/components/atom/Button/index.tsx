@@ -38,8 +38,8 @@ const variants = {
     font-size: 16px;
 
     &:hover {
-      backgroundcolor: #3c3c3c;
-      color: #ecfe54;
+      background-color: #3c3c3c;
+      color: '#ecfe54';
     }
 
     &:disabled {
