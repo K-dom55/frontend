@@ -3,12 +3,37 @@ import { Forms as FormsTemplate } from '@/components/templates';
 import { Button, DeemLayer } from '@/components/atom';
 import { Popup } from '@/components/molecules';
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
+
+export enum FormType {
+  Profile = 1,
+  Favorite = 2,
+  Health = 3,
+}
 
 export default function Forms() {
+  const router = useRouter();
   const [showPopup, setShowPopup] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+  const [step, setStep] = useState(1);
+
+  const handleNext = () => {
+    setStep((prev) => prev + 1);
+    setSlideDirection('right');
+  };
+
+  const handleBack = () => {
+    setStep((prev) => prev - 1);
+    setSlideDirection('left');
+  };
+
   return (
     <>
       <FormsTemplate
+        step={step}
+        slideDirection={slideDirection}
+        handleNext={handleNext}
+        handleBack={handleBack}
         handleShowPopup={() => {
           setShowPopup(true);
         }}
@@ -36,6 +61,9 @@ export default function Forms() {
                 아니요
               </Button>
               <Button
+                onClick={() => {
+                  router.push('/');
+                }}
                 size="xxlarge"
                 css={css`
                   display: block;

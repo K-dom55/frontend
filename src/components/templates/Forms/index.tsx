@@ -1,22 +1,156 @@
 import { FormsHeader } from '@/components/organisms';
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+
 import { css } from '@emotion/react';
+import ProfileForm from './ProfileForm';
+import { FormType } from '@/pages/forms';
+import FavoritForm from './FavoriteForm';
+import HealthForm from './HealthForm';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+
+import axios from 'axios';
 
 interface Props {
+  step?: number;
   handleShowPopup: () => void;
+  handleNext?: () => void;
+  handleBack?: () => void;
+  slideDirection: 'left' | 'right';
 }
 
-export default function Forms({ handleShowPopup }: Props) {
-  return (
-    <div>
-      <FormsHeader>
-        <FormsHeader.Navigation onClickHome={handleShowPopup}>효능 자랑하기</FormsHeader.Navigation>
-        <FormsHeader.ProgressBar
-          css={css`
-            margin-top: 6px;
-          `}
+export default function Forms({
+  step,
+  handleShowPopup,
+  handleNext,
+  handleBack,
+  slideDirection,
+}: Props) {
+  let FormContent: JSX.Element;
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    setError,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm();
+  const router = useRouter();
+
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [profileName, setProfilename] = useState('');
+  const [favoriteMent, setFavoriteMent] = useState('');
+  const [favoriteReason, setFavoriteReason] = useState('');
+  const [favoriteLink, setFavoriteLink] = useState('');
+  const [keywordList, setKeywordList] = useState<{ id: number; keyword: string }[]>([]);
+  const [imageFile, setImageFile] = useState<string | Blob | undefined>(undefined);
+
+  const submitFinal = async () => {
+    const dto = {
+      title: favoriteMent,
+      content: favoriteReason,
+      target: profileName,
+      linkUrl: favoriteLink,
+      keyword: keywordList,
+    };
+    const formData = new FormData();
+    formData.append('dto', JSON.stringify(dto));
+    if (!imageFile) return;
+    formData.append('file', imageFile);
+
+    await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL as string, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
+
+  const onSubmit = (values: any) => {};
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    const file = event.target.files[0];
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImageFile(file);
+      setImagePreview(imageUrl);
+    }
+  };
+  const handleChangeProfileName = (e: ChangeEvent<HTMLInputElement>) => {
+    setProfilename(e.target.value);
+  };
+  const handleChangeFavoriteMent = (e: ChangeEvent<HTMLInputElement>) => {
+    setFavoriteMent(e.target.value);
+  };
+
+  const handleChangeFavoriteReasson = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFavoriteReason(e.target.value);
+  };
+  const handleChangeFavoriteLink = (e: ChangeEvent<HTMLInputElement>) => {
+    setFavoriteLink(e.target.value);
+  };
+
+  const handleAddKeywordItem = (keyword: string) => {
+    setKeywordList([...keywordList, { keyword, id: Math.random() }]);
+  };
+  const handleDeleteKeywordItem = (selectedId: number) => {
+    setKeywordList(keywordList.filter(({ id }) => selectedId !== id));
+  };
+
+  switch (step) {
+    case FormType.Profile:
+      FormContent = (
+        <ProfileForm
+          step={step}
+          slideDirection={slideDirection}
+          name="picture"
+          control={control}
+          rules={{ required: true }}
+          imagePreview={imagePreview}
+          handleShowPopup={handleShowPopup}
+          handleFileChange={handleFileChange}
+          profileName={profileName}
+          handleChangeProfileName={handleChangeProfileName}
+          handleNext={handleNext}
         />
-      </FormsHeader>
-    </div>
-  );
+      );
+      break;
+    case FormType.Favorite:
+      FormContent = (
+        <FavoritForm
+          step={step}
+          slideDirection={slideDirection}
+          favoriteMent={favoriteMent}
+          handleChangeFavoriteMent={handleChangeFavoriteMent}
+          handleShowPopup={handleShowPopup}
+          favoriteReason={favoriteReason}
+          handleChangeFavoriteReason={handleChangeFavoriteReasson}
+          favoriteLink={favoriteLink}
+          handleChangeFavoriteLink={handleChangeFavoriteLink}
+          handleNext={handleNext}
+          handleBack={handleBack}
+        />
+      );
+      break;
+    case FormType.Health:
+      FormContent = (
+        <HealthForm
+          step={step}
+          slideDirection={slideDirection}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          handleShowPopup={handleShowPopup}
+          keywordList={keywordList}
+          handleAddKeywordItem={handleAddKeywordItem}
+          handleDeleteKeywordItem={handleDeleteKeywordItem}
+        />
+      );
+      break;
+    default:
+      throw new Error('Invalid step');
+  }
+
+  return <AnimatePresence>{FormContent}</AnimatePresence>;
 }

@@ -25,7 +25,7 @@ function Navigation({ onClickBack, onClickHome, children }: INavigation) {
         css`
           height: 48px;
           display: flex;
-          jsutify-content: space-between;
+          justify-content: space-between;
           align-items: center;
           padding-left: 12px;
           padding-right: 12px;
@@ -65,13 +65,13 @@ interface IProgressBar extends HTMLAttributes<HTMLDivElement> {
   step?: number;
 }
 
-function ProgressBar({ step = 2, ...rest }: IProgressBar) {
-  const progressWidthPercent = `${step * 33}%`;
+function ProgressBar({ step = 1, ...rest }: IProgressBar) {
+  const progressWidthPercent = `${step * 34}%`;
   return (
     <div
       css={css`
-        dispaly: flex;
-        justify-contnet: flex-start;
+        display: flex;
+        justify-content: flex-start;
         border: 1px solid #1d1d1d;
         margin-left: 20px;
         margin-right: 20px;
@@ -101,7 +101,9 @@ function ProgressBar({ step = 2, ...rest }: IProgressBar) {
           `,
           step === 3 &&
             css`
-              display: none;
+              &::after {
+                display: none;
+              }
             `,
         ]}
       />

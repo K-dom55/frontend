@@ -12,6 +12,7 @@ export const resetStyle = css`
   body,
   div,
   span,
+  sd input,
   h1,
   h2,
   h3,
@@ -34,7 +35,6 @@ export const resetStyle = css`
     padding: 0;
     border: 0;
     padding: 0;
-    font-size: 16px;
     vertical-align: baseline;
   }
   body {

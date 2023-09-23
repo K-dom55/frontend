@@ -52,6 +52,10 @@ const variants = {
     border: 1px solid #1d1d1d;
     background: #fff;
     color: #1d1d1d;
+
+    &:hover {
+      opacity: 0.8;
+    }
   `,
 };
 
