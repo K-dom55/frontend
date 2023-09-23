@@ -1,4 +1,6 @@
 import '@/styles/globals.css';
+import { theme } from '@/styles/theme';
+import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import localFont from 'next/font/local';
 import React from 'react';
@@ -21,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
         outline: '1px solid black',
       }}
     >
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </main>
   );
 }
