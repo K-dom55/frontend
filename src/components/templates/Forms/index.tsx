@@ -61,12 +61,6 @@ export default function Forms({
 
     formData.append('dto', JSON.stringify(dto));
 
-    console.log(imageFile);
-
-    console.log(formData);
-
-    console.log(imageFile);
-
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL as string}/articles`, formData, {
         headers: {
