@@ -5,53 +5,58 @@ import { HTMLAttributes } from 'react';
 
 const sizes = {
   small: css`
-    padding-left: 10;
-    padding-right: 10;
-    height: 29;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 29px;
   `,
   medium: css`
-    padding-left: 10;
-    padding-right: 10;
-    height: 32;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 32px;
   `,
   large: css`
-    padding-left: 10;
-    padding-right: 10;
-    height: 34;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 34px;
   `,
   xlarge: css`
-    padding-left: 10;
-    padding-right: 10;
-    height: 37;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 37px;
+  `,
+  xxlarge: css`
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 48px;
   `,
 };
 
 const variants = {
   primary: css`
-    color: '#ecfe54';
+    color: #ecfe54;
     background-color: #1d1d1d;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 140%;
+    font-size: 16px;
 
     &:hover {
-      backgroundcolor: '#3c3c3c';
-      color: '#ecfe54';
+      backgroundcolor: #3c3c3c;
+      color: #ecfe54;
     }
 
     &:disabled {
-      background-color: '#dadada';
-      color: '#979797';
+      background-color: #dadada;
+      color: #979797;
     }
   `,
   outlined: css`
+    font-size: 16px;
     border: 1px solid #1d1d1d;
-    color: '#1d1d1d';
+    background: #fff;
+    color: #1d1d1d;
   `,
 };
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
   variant?: 'primary' | 'outlined';
   selected?: boolean;
   disabled?: boolean;
@@ -75,6 +80,7 @@ export default function Button({
         sizes[size],
         variants[variant],
         css`
+          font-family: pretendard;
           text-align: center;
         `,
         cssProps,

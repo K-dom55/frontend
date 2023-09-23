@@ -14,6 +14,9 @@ export const theme = {
   primaryBlack: '#1d1d1d',
   secondaryNeonGreen: '#6568eb',
   background: '#f9f9f9',
+  pretendard: css`
+    font-family: 'pretendard';
+  `,
   aggro: css`
     font-family: 'SBAggroB';
   `,
