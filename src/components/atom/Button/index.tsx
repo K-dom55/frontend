@@ -35,7 +35,7 @@ const variants = {
     line-height: 140%;
 
     &:hover {
-      backgroundcolor: '#3c3c3c';
+      background-color: '#3c3c3c';
       color: '#ecfe54';
     }
 
