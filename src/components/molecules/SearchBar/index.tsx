@@ -48,7 +48,7 @@ export default function SearchBar({ placeholder, onSearch }: Props) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={'asdf'}
+        placeholder={placeholder}
         css={[theme.body2, style.input]}
         ref={inputRef}
       />
