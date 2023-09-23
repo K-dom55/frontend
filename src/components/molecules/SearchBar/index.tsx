@@ -20,6 +20,7 @@ export default function SearchBar({ placeholder, onSearch }: Props) {
       display: flex;
       justify-content: space-between;
       padding: 16px 16px 16px 8px;
+      width: 320px;
     `,
     input: (theme: Theme) => css`
       appearance: none;
