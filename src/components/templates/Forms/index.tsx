@@ -89,7 +89,7 @@ export default function Forms({
       content: favoriteReason,
       target: profileName,
       linkUrl: favoriteLink,
-      keyword: keywordList.map(({ keyword }) => keyword),
+      keywords: keywordList.map(({ keyword }) => keyword),
       file: imageFile,
     };
     const formData = new FormData();
@@ -116,7 +116,7 @@ export default function Forms({
     } catch (e) {
       console.error(e);
     } finally {
-      const params = JSON.stringify(dto);
+      const params = JSON.stringify({ ...dto, imgUrl: dto.file });
       router.push(`/result?dto=${params}`);
     }
   };
