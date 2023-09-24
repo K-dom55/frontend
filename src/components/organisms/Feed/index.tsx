@@ -37,6 +37,8 @@ function FeedMain({ children, onClick }: FeedMainProps) {
     align-items: center;
     gap: 12px;
 
+    cursor: pointer;
+
     border: 2px solid #1d1d1d;
     background: white;
   `;

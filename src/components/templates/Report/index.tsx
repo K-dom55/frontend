@@ -18,7 +18,8 @@ interface Props {
     content: string;
     target: string;
     linkUrl: string;
-    keyword: { keyword: string; id: number }[];
+    keywords: { keyword: string; id: number }[];
+    createdAt?: string;
   };
 }
 
@@ -205,13 +206,15 @@ export default function Report({ attachUrl, dto }: Props) {
           </div>
           <div css={style.profileDateTitle}>
             <p css={[theme.aggro, style.subtitle]}>발행 일시</p>
-            <p css={[theme.aggro, style.profileDate]}>{moment().format('YY.MM.DD')}</p>
+            <p css={[theme.aggro, style.profileDate]}>
+              {moment(dto?.createdAt).format('YY.MM.DD')}
+            </p>
           </div>
         </div>
         <div css={style.effect}>
           <p css={[theme.aggro, style.subtitle]}>최애의 효능</p>
           <div css={style.chipContainer}>
-            {dto?.keyword.map((keyword, i) => {
+            {dto?.keywords.map((keyword, i) => {
               if (i === 4) return;
               return <Feed.Chip key={keyword.id} text={keyword.keyword} />;
             })}
@@ -232,7 +235,7 @@ export default function Report({ attachUrl, dto }: Props) {
           {thumbnailUrl && (
             <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
           )}
-          <a css={[theme.caption3, style.attach]} href="https://youtu.be/9J1IXuEtToY">
+          <a css={[theme.caption3, style.attach]} href={dto?.linkUrl}>
             <AttachImage />
             {dto?.linkUrl}
           </a>

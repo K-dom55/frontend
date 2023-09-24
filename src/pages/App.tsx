@@ -1,23 +1,16 @@
-import '@/styles/globals.css';
 import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
-import localFont from 'next/font/local';
 import React from 'react';
 import { theme } from '@/styles/theme';
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/react';
 import { resetStyle } from '@/styles/resetStyle';
-import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
-const pretendard = localFont({
-  src: '../assets/fonts/woff2/PretendardVariable.woff2',
-});
+import { pretendard } from './_app';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <ToastContainer />
+    <ToastContainer>
       <main
         className={pretendard.className}
         style={{
@@ -53,6 +46,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </ThemeProvider>
       </main>
-    </>
+    </ToastContainer>
   );
 }

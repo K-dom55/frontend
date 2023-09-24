@@ -1,11 +1,13 @@
 import { ArticleListDTO, getArticleList, getSearchArticleList } from '@/api/article';
 import FeedTemplate from '@/components/templates/Feed';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 export default function Feeds() {
   const [articleList, setArticleList] = useState<ArticleListDTO[]>([]);
   const [isFinished, setFinished] = useState<boolean>(false);
   const [hasNoResult, setNoResult] = useState<boolean>(false);
+  const router = useRouter();
 
   // const loadMore = (id: number) => {
   //   getArticleList(id, '', '').then((res) => {
@@ -26,6 +28,13 @@ export default function Feeds() {
         console.error(e.message);
         setNoResult(true);
       });
+  };
+
+  const handleClick = (id: number) => {
+    const [article] = articleList.filter((target) => target.id === id);
+
+    const dto = JSON.stringify(article);
+    router.push(`/result?dto=${dto}`);
   };
 
   // init articles
@@ -50,6 +59,7 @@ export default function Feeds() {
         articleList={articleList ?? null}
         hasNoResult={hasNoResult}
         onSearch={handleSearch}
+        onClick={handleClick}
       />
     </>
   );

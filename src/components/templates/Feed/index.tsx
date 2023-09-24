@@ -4,6 +4,7 @@ import SearchBar from '@/components/molecules/SearchBar';
 import { Feed } from '@/components/organisms/Feed';
 import Navigation from '@/components/organisms/Navigation';
 import { Theme, css, useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 interface Props {
@@ -43,11 +44,12 @@ export default function FeedTemplate({ articleList, hasNoResult, onSearch, onCli
   const theme = useTheme();
 
   const [searchValue, setSearchValue] = useState<string>('');
+  const router = useRouter();
 
   return (
     <div css={style.container}>
       <div css={style.navigatorContainer}>
-        <Navigation>효능 모아보기</Navigation>
+        <Navigation onClickHome={() => router.push('/')}>효능 모아보기</Navigation>
       </div>
       <div css={style.searchBarContainer}>
         <SearchBar
@@ -76,7 +78,8 @@ export default function FeedTemplate({ articleList, hasNoResult, onSearch, onCli
         </Feed>
       ))}
       <span css={[theme.body2, theme.gray500]}>
-        {hasNoResult && `${searchValue}에 대한 검색 결과가 없어요 ㅠㅠ`}
+        {hasNoResult && searchValue && `${searchValue}에 대한 검색 결과가 없어요 ㅠㅠ`}
+        {hasNoResult && !searchValue && `데이터가 없거나 불러오지 못했어요`}
       </span>
     </div>
   );

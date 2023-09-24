@@ -10,6 +10,7 @@ export interface ArticleListDTO {
   keywords: string[];
   likeCount: number;
   likeRank?: number;
+  createdAt: string;
 }
 
 export async function getArticleList(articleId?: number) {

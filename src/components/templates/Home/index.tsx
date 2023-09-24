@@ -4,6 +4,7 @@ import { Button } from '@/components/atom';
 import { useTheme } from '@emotion/react';
 import TitleImage from '@/assets/images/title.svg';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const theme = useTheme();
@@ -82,7 +83,13 @@ export default function Home() {
           </Button>
           <Button
             onClick={() => {
-              router.push('/ranking');
+              // router.push('/ranking');
+              toast.info('신기능 출시 준비중입니다.', {
+                position: 'top-center',
+                hideProgressBar: true,
+                autoClose: 4000,
+                toastId: 'ranking-toast',
+              });
             }}
             variant="outlined"
             size="xxlarge"
