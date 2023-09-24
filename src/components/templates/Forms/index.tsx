@@ -54,7 +54,7 @@ export default function Forms({
       content: favoriteReason,
       target: profileName,
       linkUrl: favoriteLink,
-      keyword: keywordList,
+      keywords: keywordList,
     };
     const formData = new FormData();
     if (!imageFile) return;

@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 interface FeedMainProps {
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 interface FeedTitleProps {
@@ -27,7 +28,7 @@ interface FeedLikeContainerProps {
   children: React.ReactNode;
 }
 
-function FeedMain({ children }: FeedMainProps) {
+function FeedMain({ children, onClick }: FeedMainProps) {
   const style = css`
     width: 320px;
     padding: 16px 16px 12px 16px;
@@ -36,11 +37,17 @@ function FeedMain({ children }: FeedMainProps) {
     align-items: center;
     gap: 12px;
 
+    cursor: pointer;
+
     border: 2px solid #1d1d1d;
     background: white;
   `;
 
-  return <div css={[style]}>{children}</div>;
+  return (
+    <div css={[style]} onClick={() => onClick?.()}>
+      {children}
+    </div>
+  );
 }
 
 function FeedSpacer() {
