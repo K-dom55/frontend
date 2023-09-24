@@ -46,6 +46,12 @@ export default function Forms({
   const [favoriteLink, setFavoriteLink] = useState('');
   const [keywordList, setKeywordList] = useState<{ id: number; keyword: string }[]>([]);
   const [imageFile, setImageFile] = useState<string | Blob | undefined>(undefined);
+  const [disableTagInput, setDisableTagInput] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (keywordList.length === 3) setDisableTagInput(true);
+    else if (keywordList.length < 3) setDisableTagInput(false);
+  }, [keywordList.length]);
 
   /*
   const submitFinal = async () => {
@@ -155,6 +161,7 @@ export default function Forms({
   };
 
   const handleAddKeywordItem = (keyword: string) => {
+    if (keywordList.length === 3) return;
     setKeywordList([...keywordList, { keyword, id: Math.random() }]);
   };
   const handleDeleteKeywordItem = (selectedId: number) => {
@@ -207,6 +214,7 @@ export default function Forms({
           keywordList={keywordList}
           handleAddKeywordItem={handleAddKeywordItem}
           handleDeleteKeywordItem={handleDeleteKeywordItem}
+          disableInput={disableTagInput}
         />
       );
       break;

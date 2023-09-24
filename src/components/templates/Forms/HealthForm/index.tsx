@@ -14,6 +14,7 @@ interface Props {
   handleAddKeywordItem: (keyword: string) => void;
   handleDeleteKeywordItem: (selectedId: number) => void;
   handleNext?: () => void;
+  disableInput: boolean;
 }
 
 export default function HealthForm({
@@ -25,6 +26,7 @@ export default function HealthForm({
   handleAddKeywordItem,
   handleDeleteKeywordItem,
   handleNext,
+  disableInput,
 }: Props) {
   const [keyword, setKeyword] = useState('');
 
@@ -103,6 +105,7 @@ export default function HealthForm({
                 setKeyword(e.target.value);
               }}
               placeholder="예시 보약"
+              disabled={disableInput}
               css={css`
                 display: block;
                 position: relative;
