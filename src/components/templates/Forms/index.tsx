@@ -99,12 +99,16 @@ export default function Forms({
     formData.append('dto', JSON.stringify(dto));
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL as string}/articles`, {
-        method: 'POST',
-        body: JSON.stringify({
-          ...dto,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL as string}/articles?title=${dto.title}&target=${
+          dto.target
+        }&content=${dto.content}&linkUrl=${dto.linkUrl}&keyword1=${dto.keywords[0]}&keyword2=${
+          dto.keywords[1] || ''
+        }&keyword3=${dto.keywords[2] || ''}&imageUrl=${dto.file}`,
+        {
+          method: 'PATCH',
+        },
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
