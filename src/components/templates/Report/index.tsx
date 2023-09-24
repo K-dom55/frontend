@@ -224,7 +224,7 @@ export default function Report({ attachUrl, dto }: Props) {
         </div>
       </div>
       <div css={style.reason}>
-        <p css={[theme.aggro, style.subtitle]}>문상훈을 사랑해야하는 이유</p>
+        <p css={[theme.aggro, style.subtitle]}>최애를 사랑해야하는 이유</p>
         <p css={theme.caption1}>{dto?.content}</p>
       </div>
       <div css={style.last}>

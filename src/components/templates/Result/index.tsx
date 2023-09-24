@@ -5,6 +5,7 @@ import { useResetProjection } from 'framer-motion';
 import { ShareNative, ShareTwitter, ShareKakao } from '@/components/atom';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function Result() {
   const router = useRouter();
@@ -30,6 +31,12 @@ export default function Result() {
         onClick={async () => {
           try {
             //            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/like/${articleId}`);
+            setLike(!isLike);
+            if (isLike) {
+              toast.success('좋아요를 눌렀어요.');
+            } else {
+              toast.success('좋아요를 해제했어요.');
+            }
           } catch (e) {
             console.log(e);
           }
@@ -49,7 +56,7 @@ export default function Result() {
           />
           <path
             d="M50 33.6667L36.5 20L23 33.6667L50 61L77 33.6667L63.5 20L50 33.6667Z"
-            fill="#6E6E6E"
+            fill={isLike ? 'red' : '#6E6E6E'}
           />
         </svg>
       </button>
@@ -79,7 +86,7 @@ export default function Result() {
         >
           <ShareKakao />
           <ShareNative />
-          <button type="button" aria-label="홈으로 이동">
+          <button type="button" aria-label="홈으로 이동" onClick={() => router.push('/')}>
             <svg
               css={css`
                 vertical-align: bottom;
