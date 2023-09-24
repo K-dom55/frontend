@@ -18,8 +18,9 @@ interface Props {
     content: string;
     target: string;
     linkUrl: string;
-    keywords: { keyword: string; id: number }[];
+    keywords: string[];
     createdAt?: string;
+    imgUrl: string;
   };
 }
 
@@ -133,9 +134,10 @@ export default function Report({ attachUrl, dto }: Props) {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      width: 100%;
     `,
-    profileImage: css`
-      background-image: url('https://kdom.s3.ap-northeast-2.amazonaws.com/3%EC%A3%BC%EC%B0%A8_2021105604_%EB%B0%B0%EC%9E%AC%EC%9D%80_%ED%95%A9%EB%B3%8D%EC%A0%95%EB%A0%AC1.png');
+    profileImage: (url: string) => css`
+      background-image: url(${url});
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
@@ -196,7 +198,7 @@ export default function Report({ attachUrl, dto }: Props) {
         <p css={[style.title, theme.headline1, theme.aggro]}>{dto?.title}</p>
       </div>
       <div css={style.imageContainer}>
-        <div css={style.profileImage}></div>
+        <div css={style.profileImage(dto?.imgUrl || '')}></div>
       </div>
       <div css={style.profile}>
         <div css={style.profileNameDate}>
@@ -215,8 +217,8 @@ export default function Report({ attachUrl, dto }: Props) {
           <p css={[theme.aggro, style.subtitle]}>최애의 효능</p>
           <div css={style.chipContainer}>
             {dto?.keywords.map((keyword, i) => {
-              if (i === 4) return;
-              return <Feed.Chip key={keyword.id} text={keyword.keyword} />;
+              if (i > 2) return;
+              return <Feed.Chip key={i} text={keyword} />;
             })}
           </div>
         </div>
@@ -236,8 +238,9 @@ export default function Report({ attachUrl, dto }: Props) {
             <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
           )}
           <a css={[theme.caption3, style.attach]} href={dto?.linkUrl}>
-            <AttachImage />
+            {dto?.linkUrl && <AttachImage />}
             {dto?.linkUrl}
+            {dto?.linkUrl || '링크가 없어요'}
           </a>
         </div>
 
