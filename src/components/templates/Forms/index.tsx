@@ -47,6 +47,7 @@ export default function Forms({
   const [keywordList, setKeywordList] = useState<{ id: number; keyword: string }[]>([]);
   const [imageFile, setImageFile] = useState<string | Blob | undefined>(undefined);
 
+  /*
   const submitFinal = async () => {
     const dto = {
       title: favoriteMent,
@@ -74,16 +75,68 @@ export default function Forms({
       router.push(`/result?dto=${params}`);
     }
   };
+  */
+
+  const submitFinal = async () => {
+    const dto = {
+      title: favoriteMent,
+      content: favoriteReason,
+      target: profileName,
+      linkUrl: favoriteLink,
+      keyword: keywordList.map(({ keyword }) => keyword),
+      file: imageFile,
+    };
+    const formData = new FormData();
+    if (!imageFile) return;
+    formData.append('file', imageFile);
+
+    formData.append('dto', JSON.stringify(dto));
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL as string}/articles`, {
+        method: 'POST',
+        body: JSON.stringify({
+          ...dto,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // 서버 응답 처리
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      const params = JSON.stringify(dto);
+      router.push(`/result?dto=${params}`);
+    }
+  };
 
   const onSubmit = (values: any) => {};
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const file = event.target.files[0];
-    console.log(file);
 
     if (file) {
+      const data = new FormData();
+      data.append('file', file);
+
+      const res = await axios.post<{ message: string }>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/image`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+      if (!res.data.message) return;
+
       const imageUrl = URL.createObjectURL(file);
-      setImageFile(file);
+      setImageFile(res.data.message);
       setImagePreview(imageUrl);
     }
   };
