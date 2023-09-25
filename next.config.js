@@ -4,7 +4,7 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: '/proxy/:slug*',
+        source: '/api/:slug*',
         destination: 'http://15.164.107.240/api/:slug*',
       },
     ];
