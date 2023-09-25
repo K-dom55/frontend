@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  rewrites: async () => {
+    return [
+      {
+        source: '/proxy/:slug*',
+        destination: 'http://15.164.107.240/api/:slug*',
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
