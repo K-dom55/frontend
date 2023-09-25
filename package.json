@@ -30,6 +30,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.40.1",
     "@svgr/webpack": "^8.1.0",
     "prettier": "^3.0.3"
   }
