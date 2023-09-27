@@ -11,6 +11,18 @@ import { ShareKakao, ShareNative, ShareTwitter } from '@/components/atom';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 
+function getIDfromURL(url: string) {
+  const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+
+  const match = url.match(regExp);
+
+  if (match && match[2].length === 11) {
+    return match[2];
+  }
+
+  return null;
+}
+
 interface Props {
   attachUrl: string;
   dto?: {
@@ -163,21 +175,14 @@ export default function Report({ attachUrl, dto }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    const urlList = [
-      'https://www.youtube.com/embed/',
-      'https://youtu.be/',
-      'https://www.youtube.com/watch?v=',
-    ];
+    if (!dto) return;
 
-    for (const matchUrl of urlList) {
-      if (attachUrl.includes(matchUrl)) {
-        setThumbnailUrl(
-          `https://img.youtube.com/vi/${attachUrl.replace(matchUrl, '')}/sddefault.jpg`,
-        );
-        return;
-      }
-    }
-  }, [attachUrl]);
+    const videoId = getIDfromURL(dto.linkUrl);
+
+    if (!videoId) return;
+
+    setThumbnailUrl(`https://img.youtube.com/vi/${getIDfromURL(dto.linkUrl)}/maxresdefault.jpg`);
+  }, [dto, thumbnailUrl]);
 
   const theme = useTheme();
 
@@ -239,7 +244,6 @@ export default function Report({ attachUrl, dto }: Props) {
           )}
           <a css={[theme.caption3, style.attach]} href={dto?.linkUrl}>
             {dto?.linkUrl && <AttachImage />}
-            {dto?.linkUrl}
             {dto?.linkUrl || '링크가 없어요'}
           </a>
         </div>
