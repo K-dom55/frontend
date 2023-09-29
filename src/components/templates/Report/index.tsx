@@ -239,12 +239,14 @@ export default function Report({ attachUrl, dto }: Props) {
             width: 100%;
           `}
         >
-          {thumbnailUrl && (
-            <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
-          )}
-          <a css={[theme.caption3, style.attach]} href={dto?.linkUrl}>
-            {dto?.linkUrl && <AttachImage />}
-            {dto?.linkUrl || '링크가 없어요'}
+          <a css={[theme.caption3]} href={dto?.linkUrl} target="_blank">
+            {thumbnailUrl && (
+              <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
+            )}
+            <div css={[style.attach]}>
+              {dto?.linkUrl && <AttachImage />}
+              {dto?.linkUrl || '링크가 없어요'}
+            </div>
           </a>
         </div>
 
