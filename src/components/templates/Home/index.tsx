@@ -83,13 +83,7 @@ export default function Home() {
           </Button>
           <Button
             onClick={() => {
-              // router.push('/ranking');
-              toast.info('신기능 출시 준비중입니다.', {
-                position: 'top-center',
-                hideProgressBar: true,
-                autoClose: 4000,
-                toastId: 'ranking-toast',
-              });
+              router.push('/ranking');
             }}
             variant="outlined"
             size="xxlarge"
