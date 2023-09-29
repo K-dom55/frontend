@@ -86,7 +86,17 @@ export default function HealthForm({
             padding-right: 20px;
           `}
         >
-          <Forms.H2>최애의 대표 효능</Forms.H2>
+          <Forms.H2
+            css={css`
+              &::after {
+                content: '*';
+                color: red;
+                margin-left: 4px;
+              }
+            `}
+          >
+            최애의 대표 효능
+          </Forms.H2>
           <form
             css={css`
               position: relative;
@@ -104,7 +114,7 @@ export default function HealthForm({
               onChange={(e) => {
                 setKeyword(e.target.value);
               }}
-              placeholder="예시 보약"
+              placeholder="예시) 안구정화"
               disabled={disableInput}
               css={css`
                 display: block;
@@ -184,7 +194,21 @@ export default function HealthForm({
             padding-right: 20px;
           `}
         >
-          <Forms.H2>선택한 효능</Forms.H2>
+          <Forms.H2
+            css={css`
+              &::after {
+                content: '최대 3개';
+                font-family: Pretendard;
+                font-size: 14px;
+                font-weight: 500;
+                margin-left: 8px;
+                vetical-align: text-top;
+                color: #6e6e6e;
+              }
+            `}
+          >
+            선택한 효능
+          </Forms.H2>
           <div
             css={css`
               margin-top: 16px;

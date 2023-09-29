@@ -87,7 +87,17 @@ export default function FavoritForm({
             padding-right: 20px;
           `}
         >
-          <Forms.H2>대표 주접 멘트</Forms.H2>
+          <Forms.H2
+            css={css`
+              &::after {
+                content: '*';
+                color: red;
+                margin-left: 4px;
+              }
+            `}
+          >
+            대표 주접 멘트
+          </Forms.H2>
           <Forms.Body1>제목으로 올라갈 멘트에요.</Forms.Body1>
           <input
             type="text"
@@ -125,28 +135,40 @@ export default function FavoritForm({
             padding-right: 20px;
           `}
         >
-          <Forms.H2>최애를 사랑해야하는 이유</Forms.H2>
+          <Forms.H2
+            css={css`
+              &::after {
+                content: '*';
+                color: red;
+                margin-left: 4px;
+              }
+            `}
+          >
+            최애를 사랑해야하는 이유
+          </Forms.H2>
           <TextareaAutosize
-            placeholder="예) 최애를 만나고 코로나가 사라졌다"
+            placeholder="예) 최애는 심신안정과 체력회복에 좋다."
             value={favoriteReason}
             onChange={handleChangeFavoriteReason}
             css={css`
               margin-top: 4px;
+              background-color: transparent;
               display: block;
               font-family: Pretendard;
               min-height: 96px;
               padding-left: 8px;
               padding-top: 12px;
               padding-bottom: 12px;
-              border: none;
-              border-bottom: 1px solid #b7b7b7;
+              border: 1px solid #b7b7b7;
               width: 100%;
               font-size: 14px;
               &:placeholder {
+                border-radius: 0;
                 color: #b7b7b7;
               }
               &:focus {
-                outline: 1px solid black;
+                outline: none;
+                border: 1px solid black;
               }
             `}
           />
@@ -171,7 +193,7 @@ export default function FavoritForm({
             type="text"
             value={favoriteLink}
             onChange={handleChangeFavoriteLink}
-            placeholder="유튜브 링크를 추가해주세요"
+            placeholder="최애의 매력을 볼 수 있는 유튜브 링크를 추가해주세요"
             css={css`
               display: block;
               font-family: Pretendard;

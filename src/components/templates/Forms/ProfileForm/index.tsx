@@ -88,6 +88,11 @@ export default function ProfileForm({
           <Forms.H2
             css={css`
               margin-bottom: 3px;
+              &::after {
+                content: '*';
+                color: red;
+                margin-left: 4px;
+              }
             `}
           >
             대표 최애 사진 등록
@@ -155,12 +160,23 @@ export default function ProfileForm({
             padding-right: 20px;
           `}
         >
-          <Forms.H2>최애의 이름</Forms.H2>
+          <Forms.H2
+            css={css`
+              &::after {
+                content: '*';
+                color: red;
+                margin-left: 4px;
+              }
+            `}
+          >
+            최애의 이름
+          </Forms.H2>
+          <Forms.Body1>랭킹에 반영되는 정확한 명칭(활동명)을 작성해주세요.</Forms.Body1>
           <input
             type="text"
             value={profileName}
             onChange={handleChangeProfileName}
-            placeholder="최애의 본명을 작성해주세요"
+            placeholder="예) 슈가, 수지, 이제훈(0) / 윤기, 수징, 재훈(X)"
             css={css`
               display: block;
               font-family: Pretendard;
