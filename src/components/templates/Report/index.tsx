@@ -10,6 +10,7 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import { ShareKakao, ShareNative, ShareTwitter } from '@/components/atom';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { ArticleListDTO } from '@/api/article';
 
 function getIDfromURL(url: string) {
   const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -24,19 +25,10 @@ function getIDfromURL(url: string) {
 }
 
 interface Props {
-  attachUrl: string;
-  dto?: {
-    title: string;
-    content: string;
-    target: string;
-    linkUrl: string;
-    keywords: string[];
-    createdAt?: string;
-    imgUrl: string;
-  };
+  dto?: ArticleListDTO;
 }
 
-export default function Report({ attachUrl, dto }: Props) {
+export default function Report({ dto }: Props) {
   const style = {
     container: css`
       width: 360px;
@@ -209,7 +201,7 @@ export default function Report({ attachUrl, dto }: Props) {
         <div css={style.profileNameDate}>
           <div css={style.profileNameTitle}>
             <p css={[theme.aggro, style.subtitle]}>최애의 이름</p>
-            <p css={[theme.aggro, style.profileName]}>{dto?.content}</p>
+            <p css={[theme.aggro, style.profileName]}>{dto?.target}</p>
           </div>
           <div css={style.profileDateTitle}>
             <p css={[theme.aggro, style.subtitle]}>발행 일시</p>
@@ -230,7 +222,7 @@ export default function Report({ attachUrl, dto }: Props) {
       </div>
       <div css={style.reason}>
         <p css={[theme.aggro, style.subtitle]}>최애를 사랑해야하는 이유</p>
-        <p css={theme.caption1}>{dto?.target}</p>
+        <p css={theme.caption1}>{dto?.content}</p>
       </div>
       <div css={style.last}>
         <p css={[theme.aggro, style.subtitle]}>이 사람의 진짜 매력을 보려면...</p>
@@ -239,12 +231,14 @@ export default function Report({ attachUrl, dto }: Props) {
             width: 100%;
           `}
         >
-          {thumbnailUrl && (
-            <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
-          )}
-          <a css={[theme.caption3, style.attach]} href={dto?.linkUrl}>
-            {dto?.linkUrl && <AttachImage />}
-            {dto?.linkUrl || '링크가 없어요'}
+          <a css={[theme.caption3]} href={dto?.linkUrl} target="_blank">
+            {thumbnailUrl && (
+              <Image src={thumbnailUrl} height={180} width={320} alt="youtube 썸네일" />
+            )}
+            <div css={[style.attach]}>
+              {dto?.linkUrl && <AttachImage />}
+              {dto?.linkUrl || '링크가 없어요'}
+            </div>
           </a>
         </div>
 

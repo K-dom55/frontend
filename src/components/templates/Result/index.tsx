@@ -6,11 +6,26 @@ import { ShareNative, ShareTwitter, ShareKakao } from '@/components/atom';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { ArticleListDTO, getArticleDetail } from '@/api/article';
+import { apiInstance } from '@/api';
 
 export default function Result() {
   const router = useRouter();
-  const dto = router.query.dto && JSON.parse(router.query.dto as string);
+
+  const [dto, setDto] = useState<ArticleListDTO>();
+  // const dto = router.query.dto && JSON.parse(router.query.dto as string);
   const [isLike, setLike] = useState(false);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    if (typeof router.query.id !== 'string') return;
+
+    const articleId: number = parseInt(router.query.id);
+
+    if (!articleId) return;
+
+    getArticleDetail(articleId).then((data) => setDto(data));
+  }, [router]);
 
   const style = {
     container: css`
@@ -22,7 +37,7 @@ export default function Result() {
 
   return (
     <div css={style.container}>
-      <Report dto={dto} attachUrl="" />
+      <Report dto={dto} />
       <button
         type="button"
         css={css`

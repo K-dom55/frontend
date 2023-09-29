@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
+import { ArticleListDTO } from '@/api/article';
 
 interface Props {
   step?: number;
@@ -115,12 +116,10 @@ export default function Forms({
       }
 
       // 서버 응답 처리
-      const responseData = await response.json();
+      const { result } = (await response.json()) as { result: ArticleListDTO };
+      router.push(`/result?id=${result.id}`);
     } catch (e) {
       console.error(e);
-    } finally {
-      const params = JSON.stringify({ ...dto, imgUrl: dto.file });
-      router.push(`/result?dto=${params}`);
     }
   };
 
