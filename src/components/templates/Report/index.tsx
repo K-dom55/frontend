@@ -209,7 +209,7 @@ export default function Report({ attachUrl, dto }: Props) {
         <div css={style.profileNameDate}>
           <div css={style.profileNameTitle}>
             <p css={[theme.aggro, style.subtitle]}>최애의 이름</p>
-            <p css={[theme.aggro, style.profileName]}>{dto?.content}</p>
+            <p css={[theme.aggro, style.profileName]}>{dto?.target}</p>
           </div>
           <div css={style.profileDateTitle}>
             <p css={[theme.aggro, style.subtitle]}>발행 일시</p>
@@ -230,7 +230,7 @@ export default function Report({ attachUrl, dto }: Props) {
       </div>
       <div css={style.reason}>
         <p css={[theme.aggro, style.subtitle]}>최애를 사랑해야하는 이유</p>
-        <p css={theme.caption1}>{dto?.target}</p>
+        <p css={theme.caption1}>{dto?.content}</p>
       </div>
       <div css={style.last}>
         <p css={[theme.aggro, style.subtitle]}>이 사람의 진짜 매력을 보려면...</p>
