@@ -116,7 +116,6 @@ export default function Forms({
 
       // 서버 응답 처리
       const responseData = await response.json();
-      console.log(responseData);
     } catch (e) {
       console.error(e);
     } finally {
