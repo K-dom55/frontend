@@ -10,6 +10,7 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import { ShareKakao, ShareNative, ShareTwitter } from '@/components/atom';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { ArticleListDTO } from '@/api/article';
 
 function getIDfromURL(url: string) {
   const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -24,19 +25,10 @@ function getIDfromURL(url: string) {
 }
 
 interface Props {
-  attachUrl: string;
-  dto?: {
-    title: string;
-    content: string;
-    target: string;
-    linkUrl: string;
-    keywords: string[];
-    createdAt?: string;
-    imgUrl: string;
-  };
+  dto?: ArticleListDTO;
 }
 
-export default function Report({ attachUrl, dto }: Props) {
+export default function Report({ dto }: Props) {
   const style = {
     container: css`
       width: 360px;
