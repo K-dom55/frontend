@@ -31,10 +31,7 @@ export default function Feeds() {
   };
 
   const handleClick = (id: number) => {
-    const [article] = articleList.filter((target) => target.id === id);
-
-    const dto = JSON.stringify(article);
-    router.push(`/result?dto=${dto}`);
+    router.push(`/result?id=${id}`);
   };
 
   // init articles

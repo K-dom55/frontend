@@ -32,3 +32,11 @@ export async function getSearchArticleList(targetName: string, articleId?: numbe
 
   return res.data.result;
 }
+
+export async function getArticleDetail(id: number) {
+  const res = await apiInstance.get<ApiResponseDTO<ArticleListDTO>>(`articles/${id}`);
+
+  if (!res.data.result) throw new Error(res.data.message);
+
+  return res.data.result;
+}
